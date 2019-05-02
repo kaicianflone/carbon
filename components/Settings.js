@@ -5,10 +5,6 @@ import ThemeSelect from './ThemeSelect'
 import FontSelect from './FontSelect'
 import Slider from './Slider'
 import Toggle from './Toggle'
-import WindowPointer from './WindowPointer'
-import Collapse from './Collapse'
-import { COLORS } from '../lib/constants'
-import CustomWatermarkPicker from './CustomWatermarkPicker'
 import Popout, { managePopout } from './Popout'
 import Button from './Button'
 import Presets from './Presets'
@@ -67,31 +63,6 @@ const WindowSettings = React.memo(
               onChange={onChange.bind(null, 'dropShadowOffsetY')}
             />
             <Slider
-              label="Drop shadow (blur-radius)"
-              value={this.props.dropShadowBlurRadius || 68}
-              onChange={this.props.onChange.bind(null, 'dropShadowBlurRadius')}
-            />
-            <Toggle
-              label="Squared image"
-              enabled={this.props.squaredImage}
-              onChange={this.props.onChange.bind(null, 'squaredImage')}
-            />
-            <Toggle
-              label="Watermark"
-              enabled={this.props.watermark}
-              onChange={this.props.onChange.bind(null, 'watermark')}
-            />
-            {this.props.watermark && (
-              <CustomWatermarkPicker onChange={this.props.onChange.bind(null, 'customWatermark')} />
-            )}
-            <ExportSizeSelect
-              selected={this.props.exportSize || '2x'}
-              onChange={this.props.onChange.bind(null, 'exportSize')}
-            />
-            <Toggle
-              label="Reset settings"
-              enabled={false}
-              onChange={this.props.resetDefaultSettings}
               label="(blur-radius)"
               value={dropShadowBlurRadius}
               onChange={onChange.bind(null, 'dropShadowBlurRadius')}
