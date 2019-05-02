@@ -5,7 +5,6 @@ import debounce from 'lodash.debounce'
 import ms from 'ms'
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import SpinnerWrapper from './SpinnerWrapper'
-
 import WindowControls from './WindowControls'
 import {
   COLORS,
@@ -111,7 +110,9 @@ class Carbon extends React.PureComponent {
           value={this.props.children}
           options={options}
         />
+
         {config.watermark && <Watermark light={themeConfig.light} />}
+
         <div className="container-bg">
           <div className="white eliminateOnRender" />
           <div className="alpha eliminateOnRender" />
@@ -125,68 +126,6 @@ class Carbon extends React.PureComponent {
               max-width: 1024px;
               padding: ${config.paddingVertical} ${config.paddingHorizontal};
             }
-          `}
-        </style>
-      </div>
-    )
-    let watermark = <Watermark />
-    if (this.props.config.customWatermark) {
-      watermark = (
-        <img
-          className="watermark"
-          style={{ height: '75px', width: '75px' }}
-          src={this.props.config.customWatermark}
-          alt="Custom Watermark"
-        />
-      )
-    }
-    if (this.state.loading === false) {
-      content = (
-        <div id="container">
-          {config.windowControls ? (
-            <WindowControls
-              titleBar={this.props.titleBar}
-              theme={config.windowTheme}
-              handleTitleBarChange={this.handleTitleBarChange}
-            />
-          ) : null}
-          <CodeMirror
-            className={`CodeMirror__container window-theme__${config.windowTheme}`}
-            onBeforeChange={this.onBeforeChange}
-            value={this.props.children}
-            options={options}
-          />
-          {config.watermark && watermark}
-          <div id="container-bg">
-            <div className="white eliminateOnRender" />
-            <div className="alpha eliminateOnRender" />
-            <div className="bg" />
-          </div>
-          <style jsx>
-            {`
-              #container {
-                position: relative;
-                min-width: ${config.widthAdjustment ? '90px' : '680px'};
-                max-width: 1024px; /* The Fallback */
-                max-width: 92vw;
-                padding: ${config.paddingVertical} ${config.paddingHorizontal};
-              }
-
-              #container :global(.watermark) {
-                fill-opacity: 0.3;
-                position: absolute;
-                z-index: 2;
-                bottom: calc(${config.paddingVertical} + 16px);
-                right: calc(${config.paddingHorizontal} + 16px);
-              }
-
-              #container #container-bg {
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                bottom: 0px;
-                left: 0px;
-              }
 
             .container :global(.watermark) {
               fill-opacity: 0.75;
