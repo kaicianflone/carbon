@@ -3,9 +3,10 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true
+    node: true,
+    jest: true
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:jsx-a11y/recommended'],
   parserOptions: {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
@@ -13,13 +14,22 @@ module.exports = {
     },
     sourceType: 'module'
   },
-  plugins: ['react', 'import'],
+  plugins: ['import', 'react', 'jsx-a11y', 'react-hooks'],
   rules: {
-    'react/react-in-jsx-scope': 'off',
+    'import/no-unresolved': 'error',
+    'no-duplicate-imports': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
-    'import/no-unresolved': 2
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+    'no-console': ['error', { allow: ['error'] }]
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 }

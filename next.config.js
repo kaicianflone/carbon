@@ -1,3 +1,3 @@
-const withCSS = require('@zeit/next-css')
-/* Without CSS Modules, with PostCSS */
-module.exports = withCSS()
+const withOffline = require('next-offline')
+
+module.exports = withOffline({ dontAutoRegisterSw: true })

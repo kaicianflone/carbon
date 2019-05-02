@@ -1,6 +1,4 @@
-/* eslint-env mocha */
 /* global cy */
-import hex2rgb from 'hex2rgb'
 import { editorVisible } from '../support'
 
 // usually we can visit the page before each test
@@ -9,7 +7,7 @@ import { editorVisible } from '../support'
 
 describe('background color', () => {
   const bgColor = '.bg-color-container .bg-color'
-  const picker = '.bg-select-pickers'
+  const picker = '#bg-select-pickers'
 
   const openPicker = () => {
     cy.get(bgColor).click()
@@ -31,8 +29,7 @@ describe('background color', () => {
     const darkRed = '#D0021B'
     const darkRedTile = `[title="${darkRed}"]`
     openPicker()
-    cy
-      .get(picker)
+    cy.get(picker)
       .find(darkRedTile)
       .click()
     closePicker()
@@ -41,17 +38,17 @@ describe('background color', () => {
     cy.url().should('contain', '?bg=')
 
     // confirm color change
-    cy.get('#container-bg .bg').should('have.css', 'background-color', hex2rgb(darkRed).rgbString)
+    cy.get('.container-bg .bg').should('have.css', 'background-color', 'rgb(208, 2, 27)')
   })
 
   it('specifies color in url', () => {
-    cy.visit('/?bg=rgb(255,0,0)')
+    cy.visit('?bg=rgb(255,0,0)')
     editorVisible()
-    cy.get('#container-bg .bg').should('have.css', 'background-color', 'rgb(255, 0, 0)')
+    cy.get('.container-bg .bg').should('have.css', 'background-color', 'rgb(255, 0, 0)')
   })
 
   it('enters neon pink', () => {
-    cy.visit('/?bg=rgb(255,0,0)')
+    cy.visit('?bg=rgb(255,0,0)')
     editorVisible()
 
     const pink = 'ff00ff'
@@ -61,7 +58,7 @@ describe('background color', () => {
       .type(`${pink}{enter}`)
     closePicker()
 
-    cy.url().should('contain', '?bg=rgba(255,0,255,1')
-    cy.get('#container-bg .bg').should('have.css', 'background-color', 'rgb(255, 0, 255)')
+    cy.url().should('contain', `?bg=rgba(${encodeURIComponent('255,0,255,1')}`)
+    cy.get('.container-bg .bg').should('have.css', 'background-color', 'rgb(255, 0, 255)')
   })
 })

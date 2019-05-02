@@ -1,21 +1,26 @@
 import React from 'react'
+
 import Checkmark from './svg/Checkmark'
+import { COLORS } from '../lib/constants'
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.toggle = this.toggle.bind(this)
+class Toggle extends React.PureComponent {
+  static defaultProps = {
+    className: ''
   }
 
-  toggle() {
-    this.props.onChange(!this.props.enabled)
-  }
+  toggle = () => this.props.onChange(!this.props.enabled)
 
   render() {
     return (
-      <div className={`toggle ${this.props.className}`} onClick={this.toggle}>
+      <div
+        role="checkbox"
+        tabIndex={0}
+        className={`toggle ${this.props.className}`}
+        onClick={this.toggle}
+        aria-checked={this.props.enabled}
+      >
         <span className="label">{this.props.label}</span>
-        {this.props.enabled ? <Checkmark /> : null}
+        {this.props.enabled ? <Checkmark /> : <div className="checkmark-disabled" />}
         <style jsx>
           {`
             .toggle {
@@ -24,7 +29,14 @@ export default class extends React.Component {
               justify-content: ${this.props.center ? 'center' : 'space-between'};
               cursor: pointer;
               user-select: none;
-              padding: 8px;
+              padding: 8px 12px 8px 8px;
+            }
+
+            .checkmark-disabled {
+              width: 18px;
+              height: 18px;
+              border-radius: 36px;
+              background-color: ${COLORS.DARK_GRAY};
             }
           `}
         </style>
@@ -32,3 +44,5 @@ export default class extends React.Component {
     )
   }
 }
+
+export default Toggle

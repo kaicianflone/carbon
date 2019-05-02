@@ -1,37 +1,61 @@
 import React from 'react'
+
 import { COLORS } from '../lib/constants'
 
-export default props => (
-  <button
-    onClick={props.onClick}
-    style={{
-      ...props.style,
-      background: COLORS.BLACK,
-      color: props.color,
-      border: `1px solid ${props.color}`
-    }}
-  >
-    <span>{props.title}</span>
+const Button = ({
+  id,
+  onClick = () => {},
+  className = '',
+  background = COLORS.BLACK,
+  color = COLORS.SECONDARY,
+  hoverBackground = COLORS.HOVER,
+  hoverColor,
+  disabled,
+  selected,
+  children,
+  border,
+  center,
+  large,
+  style = {},
+  flex = 1,
+  padding = 0,
+  margin = 0
+}) => (
+  <button id={id} onClick={onClick} className={className} disabled={disabled} style={style}>
+    {children}
     <style jsx>
       {`
         button {
-          cursor: pointer;
+          display: flex;
+          flex: ${flex};
+          background-color: ${background};
+          color: ${color};
+          box-shadow: ${border ? `inset 0px 0px 0px ${selected ? 2 : 1}px ${color}` : 'initial'};
+          cursor: ${disabled ? 'not-allowed' : 'pointer'};
           outline: none;
-          height: 100%;
-          padding: 0 16px;
-          border-radius: 3px;
+          border: none;
+          padding: ${padding};
+          margin: ${margin};
+          border-radius: ${border ? '3px' : 0};
           user-select: none;
+          justify-content: ${center ? 'center' : 'initial'};
+          align-items: ${center ? 'center' : 'initial'};
+          align-self: stretch;
+          font-size: ${large ? '14px' : '12px'};
         }
 
-        button:hover {
-          background: ${COLORS.HOVER} !important;
+        button:hover,
+        button:focus {
+          background-color: ${hoverBackground} !important;
+          color: ${hoverColor || color};
         }
 
-        button > span {
-          font-size: 14px;
-          line-height: 1;
+        button:focus {
+          box-shadow: ${border ? `inset 0px 0px 0px 2px ${color}` : 'initial'};
         }
       `}
     </style>
   </button>
 )
+
+export default Button
